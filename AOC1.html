@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<script>
+<script type="text/javascript">
 function output(x) {
   var orig = document.getElementById("main").innerHTML;
   document.getElementById("main").innerHTML = orig + x + "<br />";
@@ -148,13 +148,21 @@ function main() {
   outputMap(positions);
 }
 </script>
-<style>
-body {background-color: #CCCCCC;}
-pre #start {color: blue;}
-pre #end {color: red;}
+<style type="text/css">
+body {
+	background-color: #CCCCCC;
+}
+
+pre #start {
+	color: blue;
+}
+
+pre #end {
+	color: red;
+}
 </style>
 </head>
-<body onLoad="main();">
-  <div id="main"></div>
+<body onload="main();">
+	<div id="main"></div>
 </body>
 </html>
