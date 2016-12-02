@@ -3,11 +3,10 @@
   <script>
     function makeList(){
       var numDays = 25;
-      var output = "<ul>";
+      var output = "";
       for (var i = 1; i <= numDays; i++){
-        output += "<li><div><span class='day'>Day " + i + ":</span><a href='https://raw.githubusercontent.com/Zephyr-BSC/AOC2016/master/AOC" + i + ".html'>Source</a> - <a href='AOC" + i + ".html'>Output</a></div></li>";
+        output += "<div><span class='day'>Day " + i + ":</span><a href='https://raw.githubusercontent.com/Zephyr-BSC/AOC2016/master/AOC" + i + ".html'>Source</a> - <a href='AOC" + i + ".html'>Output</a></div>\n";
       }
-      
       document.getElementById("main").innerHTML = output;
     }
   </script>
