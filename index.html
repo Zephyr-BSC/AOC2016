@@ -1,34 +1,18 @@
 <html>
 <head><title>ZephyrBSC AOC Solutions</title>
-<body>
-<h2>ZephyrBSC AOC Solutions</h2><br />
-<a href="http://adventofcode.com/">http://adventofcode.com</a>
-<ul>
-  <li><a href="AOC1.html"></li>
-  <li><a href="AOC2.html"></li>
-  <li><a href="AOC3.html"></li>
-  <li><a href="AOC4.html"></li>
-  <li><a href="AOC5.html"></li>
-  <li><a href="AOC6.html"></li>
-  <li><a href="AOC7.html"></li>
-  <li><a href="AOC8.html"></li>
-  <li><a href="AOC9.html"></li>
-  <li><a href="AOC10.html"></li>
-  <li><a href="AOC11.html"></li>
-  <li><a href="AOC12.html"></li>
-  <li><a href="AOC13.html"></li>
-  <li><a href="AOC14.html"></li>
-  <li><a href="AOC15.html"></li>
-  <li><a href="AOC16.html"></li>
-  <li><a href="AOC17.html"></li>
-  <li><a href="AOC18.html"></li>
-  <li><a href="AOC19.html"></li>
-  <li><a href="AOC20.html"></li>
-  <li><a href="AOC21.html"></li>
-  <li><a href="AOC22.html"></li>
-  <li><a href="AOC23.html"></li>
-  <li><a href="AOC24.html"></li>
-  <li><a href="AOC25.html"></li>
-</ul>
+  <script>
+    function makeList(){
+      var numDays = 25;
+      var output = "<ul>";
+      for (var i = 1; i <= numDays; i++){
+        output += "<li><a href='AOC" + i + ".html'>Day " + i + "</a></li>";
+      }
+    }
+  </script>
+</head>
+<body onLoad="makeList();">
+  <h2>ZephyrBSC AOC Solutions</h2><br />
+  <a href="http://adventofcode.com/">http://adventofcode.com</a>
+  <div id="main"></div>
 </body>
 </html>
