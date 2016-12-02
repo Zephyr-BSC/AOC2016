@@ -9,7 +9,11 @@
       }
       var output = "";
       for (var i = 1; i <= numDays; i++){
-        output += "<div><span class='day'>Day " + i + ":</span><a href='https://raw.githubusercontent.com/Zephyr-BSC/AOC2016/master/AOC" + i + ".html'>Source</a> - <a href='AOC" + i + ".html'>Output</a></div>\n";
+        output += "<div><span class='day'>Day " + i + ":</span>";
+        output += "<a href='https://raw.githubusercontent.com/Zephyr-BSC/AOC2016/master/AOC" + i + ".html'>Source</a>";
+        output += " - ";
+        output += "<a href='AOC" + i + ".html'>Output 1</a></div> ";
+        output += "<a href='AOC" + i + ".html?2'>Output 2</a></div>\n";
       }
       document.getElementById("main").innerHTML = output;
     }
