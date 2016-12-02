@@ -5,7 +5,7 @@
       var numDays = 25;
       var output = "<ul>";
       for (var i = 1; i <= numDays; i++){
-        output += "<li><span class='day'>Day " + i + ":</span><a href='https://raw.githubusercontent.com/Zephyr-BSC/AOC2016/master/AOC" + i + ".html'>Source</a> - <a href='AOC" + i + ".html'>Output</a></li>";
+        output += "<li><div><span class='day'>Day " + i + ":</span><a href='https://raw.githubusercontent.com/Zephyr-BSC/AOC2016/master/AOC" + i + ".html'>Source</a> - <a href='AOC" + i + ".html'>Output</a></div></li>";
       }
       
       document.getElementById("main").innerHTML = output;
