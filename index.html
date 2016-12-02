@@ -1,33 +1,76 @@
 <!DOCTYPE html>
 <html>
-<head><title>ZephyrBSC AOC Solutions</title>
-  <script>
-    function makeList(){
-      var numDays = 25;
-      var today = new Date();
-      if(today.getFullYear() < 2017 && today.getMonth() > 10){
-        numDays = today.getDate();
-      }
-      var output = "";
-      for (var i = 1; i <= numDays; i++){
-        output += "<div><span class='day'>Day " + i + ":</span>";
-        output += "<a href='https://raw.githubusercontent.com/Zephyr-BSC/AOC2016/master/AOC" + i + ".html'>Source</a>";
-        output += " - ";
-        output += "<a href='AOC" + i + ".html'>Output 1</a> ";
-        output += "<a href='AOC" + i + ".html?2'>Output 2</a></div>\n";
-      }
-      document.getElementById("main").innerHTML = output;
-    }
-  </script>
-  <style>
-    body {background-color: #CCCCCC;}
-    .day {width:4em;float: left;}
-    .link {margin: 1em 0m 1em 0em;}
-  </style>
+<head>
+<title>ZephyrBSC AOC Solutions</title>
+<script type="text/javascript">
+	function makeList() {
+		var numDays = 25;
+		var today = new Date();
+		if (today.getFullYear() < 2017 && today.getMonth() > 10) {
+			numDays = today.getDate();
+		}
+		var output = "";
+		for (var i = 1; i <= numDays; i++) {
+			output += "<div><span class='day'>Day " + i + ":</span>";
+			output += "<a href='https://raw.githubusercontent.com/Zephyr-BSC/AOC2016/master/AOC" + i + ".html'>Source</a>";
+			output += " - ";
+			output += "<a href='AOC" + i + ".html' target='myFrame'>Output 1</a> ";
+			output += "<a href='AOC" + i
+					+ ".html?2' target='myFrame'>Output 2</a></div>\n";
+		}
+		document.getElementById("main").innerHTML = output;
+	}
+</script>
+<style type="text/css">
+html, body, #container, #right, iframe {
+	height: 100%;
+}
+
+body {
+	background-color: #CCCCCC;
+}
+
+.day {
+	width: 4em;
+	float: left;
+}
+
+.link {
+	margin: 1em 0em 1em 0em;
+}
+
+#container {
+	width: 100%;
+}
+
+#left {
+	float: left;
+	max-width: 300px;
+}
+
+#right {
+	margin-left: 300px;
+	background-color: Red;
+}
+
+iframe {
+	border: none;
+	width: 100%;
+}
+</style>
 </head>
-<body onLoad="makeList();">
-  <h2>ZephyrBSC AOC Solutions</h2>
-  <div class="link"><a href="http://adventofcode.com/">http://adventofcode.com</a><div>
-  <div id="main"></div>
+<body onload="makeList();">
+	<div id="container">
+		<div id="left">
+			<h2>ZephyrBSC AOC Solutions</h2>
+			<div class="link">
+				<a href="http://adventofcode.com/">http://adventofcode.com</a>
+			</div>
+			<div id="main"></div>
+		</div>
+		<div id="right">
+			<iframe name="myFrame"></iframe>
+		</div>
+	</div>
 </body>
 </html>
