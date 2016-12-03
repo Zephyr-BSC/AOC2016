@@ -2,155 +2,201 @@
 <html>
 <head>
 <script type="text/javascript">
-function output(x) {
-  var orig = document.getElementById("main").innerHTML;
-  document.getElementById("main").innerHTML = orig + x + "<br />";
-}
-var input = ["L3", "R1", "L4", "L1", "L2", "R4", "L3", "L3", "R2", "R3", "L5", "R1", "R3", "L4", "L1", "L2", "R2", "R1", "L4", "L4", "R2", "L5", "R3", "R2", "R1", "L1", "L2", "R2", "R2", "L1", "L1", "R2", "R1", "L3", "L5", "R4", "L3", "R3", "R3", "L5", "L190", "L4", "R4", "R51", "L4", "R5", "R5", "R2", "L1", "L3", "R1", "R4", "L3", "R1", "R3", "L5", "L4", "R2", "R5", "R2", "L1", "L5", "L1", "L1", "R78", "L3", "R2", "L3", "R5", "L2", "R2", "R4", "L1", "L4", "R1", "R185", "R3", "L4", "L1", "L1", "L3", "R4", "L4", "L1", "R5", "L5", "L1", "R5", "L1", "R2", "L5", "L2", "R4", "R3", "L2", "R3", "R1", "L3", "L5", "L4", "R3", "L2", "L4", "L5", "L4", "R1", "L1", "R5", "L2", "R4", "R2", "R3", "L1", "L1", "L4", "L3", "R4", "L3", "L5", "R2", "L5", "L1", "L1", "R2", "R3", "L5", "L3", "L2", "L1", "L4", "R4", "R4", "L2", "R3", "R1", "L2", "R1", "L2", "L2", "R3", "R3", "L1", "R4", "L5", "L3", "R4", "R4", "R1", "L2", "L5", "L3", "R1", "R4", "L2", "R5", "R4", "R2", "L5", "L3", "R4", "R1", "L1", "R5", "L3", "R1", "R5", "L2", "R1", "L5", "L2", "R2", "L2", "L3", "R3", "R3", "R1"];
-//var input = ["R5", "L5", "R5", "R3"]; // Sample for part 1
-//var input = ["R8", "R4", "R4", "R8"]; // Sample for part 2
+	function print(x) {
+	  var orig = document.getElementById("main").innerHTML;
+	  document.getElementById("main").innerHTML = orig + x + "<br />";
+	}
 
-var isPart2 = window.location.href.includes("?2");
+	function clear() {
+	  document.getElementById("main").innerHTML = "";
+	}
 
-var dir = 0;
-var myx = 0;
-var myy = 0;
-var maxx = 0;
-var maxy = 0;
-var minx = 0;
-var miny = 0;
+	function setInitInput() {
+	  document.getElementById("puzzleinput").value = initInput;
+	  if (isPart2) {
+	    document.getElementById("part2").checked = true;
+	  } else {
+	    document.getElementById("part1").checked = true;
+	  }
+	  main();
+	}
 
-function changeDir(x) {
-  if (x.toUpperCase() == "R") {
-    dir++;
-    if (dir > 3) {
-      dir = 0;
-    }
-  } else if (x.toUpperCase() == "L") {
-    dir--;
-    if (dir < 0) {
-      dir = 3;
-    }
-  }
-}
+	function setPart(x) {
+	  isPart2 = x.value == 2;
+	}
+	var initInput = "L3, R1, L4, L1, L2, R4, L3, L3, R2, R3, L5, R1, R3, L4, L1, L2, R2, R1, L4, L4, R2, L5, R3, R2, R1, L1, L2, R2, R2, L1, L1, R2, R1, L3, L5, R4, L3, R3, R3, L5, L190, L4, R4, R51, L4, R5, R5, R2, L1, L3, R1, R4, L3, R1, R3, L5, L4, R2, R5, R2, L1, L5, L1, L1, R78, L3, R2, L3, R5, L2, R2, R4, L1, L4, R1, R185, R3, L4, L1, L1, L3, R4, L4, L1, R5, L5, L1, R5, L1, R2, L5, L2, R4, R3, L2, R3, R1, L3, L5, L4, R3, L2, L4, L5, L4, R1, L1, R5, L2, R4, R2, R3, L1, L1, L4, L3, R4, L3, L5, R2, L5, L1, L1, R2, R3, L5, L3, L2, L1, L4, R4, R4, L2, R3, R1, L2, R1, L2, L2, R3, R3, L1, R4, L5, L3, R4, R4, R1, L2, L5, L3, R1, R4, L2, R5, R4, R2, L5, L3, R4, R1, L1, R5, L3, R1, R5, L2, R1, L5, L2, R2, L2, L3, R3, R3, R1";
+	//var initInput = ["R5", "L5", "R5", "R3"]; // Sample for part 1
+	//var initInput = ["R8", "R4", "R4", "R8"]; // Sample for part 2
 
-function walk(x) {
-  var out = "";
-  switch (dir) {
-    case 0:
-	  out = "&uarr;";
-      myy += x;
-      break;
-    case 1:
-	  out = "&rarr;";
-      myx += x;
-      break;
-    case 2:
-	  out = "&darr;";
-      myy -= x;
-      break;
-    case 3:
-	  out = "&larr;";
-      myx -= x;
-      break;
-    default:
-	  out = "X";
-      output("error: " + x)
-  }
-  if (myx > maxx) {
-    maxx = myx;
-  }
-  if (myx < minx) {
-    minx = myx;
-  }
-  if (myy > maxy) {
-    maxy = myy;
-  }
-  if (myy < miny) {
-    miny = myy;
-  }
-  return out;
-}
+	function parseInput() {
+	  input = document.getElementById("puzzleinput").value.split(", ");
+	}
 
-function checkPos(x, y) {
-  var myLen = x.length;
+	//Variables
+	var dir = 0;
+	var myx = 0;
+	var myy = 0;
+	var maxx = 0;
+	var maxy = 0;
+	var minx = 0;
+	var miny = 0;
 
-  for (var i = 0; i < myLen; i++) {
-    if (x[i][0] == y[0] && x[i][1] == y[1]) {
-      return true;
-    }
-  }
-  return false;
-}
+	function intiValues() {
+	  dir = 0;
+	  myx = 0;
+	  myy = 0;
+	  maxx = 0;
+	  maxy = 0;
+	  minx = 0;
+	  miny = 0;
+	}
+	var isPart2 = window.location.href.includes("?2");
 
-function outputMap(positions) {
-  //init map
-  var myMap = [];
-  var toty = Math.abs(maxy) + Math.abs(miny);
-  var totx = Math.abs(maxx) + Math.abs(minx);
-  for (var i = 0; i <= toty; i++) {
-    myMap[i] = [];
-    for (var j = 0; j <= totx; j++) {
-      myMap[i][j] = " ";
-    }
-  }
-  //load Markers
-  var mapLen = positions.length;
-  for (var i = 0; i < mapLen; i++) {
-    myMap[Math.abs(maxy) - positions[i][1]][positions[i][0] + Math.abs(minx)] = positions[i][2];
-  }
+	function changeDir(x) {
+	  if (x.toUpperCase() == "R") {
+	    dir++;
+	    if (dir > 3) {
+	      dir = 0;
+	    }
+	  } else if (x.toUpperCase() == "L") {
+	    dir--;
+	    if (dir < 0) {
+	      dir = 3;
+	    }
+	  }
+	}
 
-  //Load Start
-  myMap[Math.abs(maxy)][Math.abs(minx)] = "<span id='start'>#</span>";
-  //Load End
-  myMap[Math.abs(maxy) - myy][myx + Math.abs(minx)] = "<span id='end'>@</span>";
+	function walk(x) {
+	  var out = "";
+	  switch (dir) {
+	    case 0:
+	      out = "&uarr;";
+	      myy += x;
+	      break;
+	    case 1:
+	      out = "&rarr;";
+	      myx += x;
+	      break;
+	    case 2:
+	      out = "&darr;";
+	      myy -= x;
+	      break;
+	    case 3:
+	      out = "&larr;";
+	      myx -= x;
+	      break;
+	    default:
+	      out = "X";
+	      output("error: " + x)
+	  }
+	  if (myx > maxx) {
+	    maxx = myx;
+	  }
+	  if (myx < minx) {
+	    minx = myx;
+	  }
+	  if (myy > maxy) {
+	    maxy = myy;
+	  }
+	  if (myy < miny) {
+	    miny = myy;
+	  }
+	  return out;
+	}
 
-  //Print Map
-  var myoutput = "<pre>";
-  for (var i = 0; i < myMap.length; i++) {
-    var curLine = "";
-    for (var j = 0; j < myMap[i].length; j++) {
-      curLine += myMap[i][j];
-    }
-    myoutput += curLine + "\n";
-  }
-  myoutput += "</pre>";
-  output(myoutput);
-}
+	function checkPos(x, y) {
+	  var myLen = x.length;
 
-function main() {
-  var positions = [];
-  var foundExit = false;
-  for (var item of input) {
-    var dirChange = item.charAt(0);
-    var walkDist = parseInt(item.substr(1));
-    changeDir(dirChange);
+	  for (var i = 0; i < myLen; i++) {
+	    if (x[i][0] == y[0] && x[i][1] == y[1]) {
+	      return true;
+	    }
+	  }
+	  return false;
+	}
 
-    for (var i = 1; i <= walkDist; i++) {
-	  var newDir = walk(1);
-      var newPos = [myx, myy, newDir];
+	function outputMap(positions) {
+	  //init map
+	  var myMap = [];
+	  var toty = Math.abs(maxy) + Math.abs(miny);
+	  var totx = Math.abs(maxx) + Math.abs(minx);
+	  for (var i = 0; i <= toty; i++) {
+	    myMap[i] = [];
+	    for (var j = 0; j <= totx; j++) {
+	      myMap[i][j] = " ";
+	    }
+	  }
+	  //load Markers
+	  var mapLen = positions.length;
+	  for (var i = 0; i < mapLen; i++) {
+	    myMap[Math.abs(maxy) - positions[i][1]][positions[i][0] + Math.abs(minx)] = positions[i][2];
+	  }
 
-      //Check for same position
-      if (isPart2 && checkPos(positions, newPos)) {
-        foundExit = true;
-        break;
-      } else {
-        //add position
-        positions.push(newPos);
-      }
-    }
-    if (foundExit) {
-      break;
-    }
-    //output(dirChange + "-" + walkDist + " : " + dir + " - " + myx + " - " + myy);
-  }
-  output("<b>Final - dir:" + dir + " x:" + myx + " y:" + myy + " Distance:" + (Math.abs(myx) + Math.abs(myy)) + "</b>");
-  outputMap(positions);
-}
+	  //Load Start
+	  myMap[Math.abs(maxy)][Math.abs(minx)] = "<span id='start'>#</span>";
+	  //Load End
+	  myMap[Math.abs(maxy) - myy][myx + Math.abs(minx)] = "<span id='end'>@</span>";
+
+	  //Print Map
+	  var myoutput = "<pre>";
+	  for (var i = 0; i < myMap.length; i++) {
+	    var curLine = "";
+	    for (var j = 0; j < myMap[i].length; j++) {
+	      curLine += myMap[i][j];
+	    }
+	    myoutput += curLine + "\n";
+	  }
+	  myoutput += "</pre>";
+	  print(myoutput);
+	}
+
+	function main() {
+	  // Initialize
+	  clear();
+	  intiValues();
+	  parseInput()
+
+	  var positions = [];
+	  var foundExit = false;
+	  for (var item of input) {
+	    var dirChange = item.charAt(0);
+	    var walkDist = parseInt(item.substr(1));
+	    changeDir(dirChange);
+
+	    for (var i = 1; i <= walkDist; i++) {
+	      var newDir = walk(1);
+	      var newPos = [myx, myy, newDir];
+
+	      //Check for same position
+	      if (isPart2 && checkPos(positions, newPos)) {
+	        foundExit = true;
+	        break;
+	      } else {
+	        //add position
+	        positions.push(newPos);
+	      }
+	    }
+	    if (foundExit) {
+	      break;
+	    }
+	    //output(dirChange + "-" + walkDist + " : " + dir + " - " + myx + " - " + myy);
+	  }
+	  print("<b>Final - dir:" + dir + " x:" + myx + " y:" + myy + " Distance:" + (Math.abs(myx) + Math.abs(myy)) + "</b>");
+	  outputMap(positions);
+	}
+
 </script>
 <style type="text/css">
 body {
 	background-color: #CCCCCC;
+}
+
+#input, #puzzleinput {
+	width: 100%;
+}
+
+#puzzleinput {
+	white-space: nowrap;
 }
 
 pre #start {
@@ -162,7 +208,18 @@ pre #end {
 }
 </style>
 </head>
-<body onload="main();">
+<body onload="setInitInput();">
+	<div id="input">
+		<textarea id="puzzleinput" cols="" rows="5"></textarea>
+		<br />
+		<form action="">
+			<input id="part1" type="radio" name="part" value="1"
+				onchange="setPart(this);" checked="checked" />Part 1 <input
+				id="part2" type="radio" name="part" value="2"
+				onchange="setPart(this);" />Part 2 <input type="button"
+				value="SOLVE" onclick="main();">
+		</form>
+	</div>
 	<div id="main"></div>
 </body>
 </html>
