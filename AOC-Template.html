@@ -1,24 +1,88 @@
-<!DOCTYPE html>
 <html>
 <head>
-<script>
-function output(x) {
-  var orig = document.getElementById("main").innerHTML;
-  document.getElementById("main").innerHTML = orig + x + "<br />";
-}
-var input = "";
+<script type="text/javascript">
+	function print(x) {
+		var orig = document.getElementById("main").innerHTML;
+		document.getElementById("main").innerHTML = orig + x + "<br />";
+	}
 
-var isPart2 = window.location.href.includes("?2");
+	function clear() {
+		document.getElementById("main").innerHTML = "";
+	}
 
-function main() {
+	function setInitInput() {
+		document.getElementById("puzzleinput").value = initInput;
+		if (isPart2) {
+			document.getElementById("part2").checked = true;
+		} else {
+			document.getElementById("part1").checked = true;
+		}
+	}
 
-}
+	function setPart(x) {
+		isPart2 = x.value == 2;
+	}
+
+	// Input/Output
+	var isPart2 = window.location.href.includes("?2");
+	var initInput = "";
+	//var initInput = ""; // Part 1 Sample Input
+	//var initInput = ""; // Part 2 Sample Input
+	var input = "";
+	var output = "";
+
+	function parseInput() {
+		input = input = document.getElementById("puzzleinput").value.split("\n");
+	}
+
+	// Variables
+
+	function intiValues() {
+
+	}
+
+	function main() {
+		// Initialize
+		clear();
+		intiValues();
+		parseInput()
+
+		// Logic
+
+		// Output
+		print(output);
+	}
 </script>
-<style>
-body {background-color: #CCCCCC;}
+<style type="text/css">
+body {
+	background-color: #CCCCCC;
+}
+
+#input, #puzzleinput {
+	width: 100%;
+}
+
+#puzzleinput {
+	white-space: nowrap;
+}
+
+#input {
+	margin-bottom: 1em;
+}
 </style>
 </head>
-<body onLoad="main();">
-  <div id="main"></div>
+<body onload="setInitInput();">
+	<div id="input">
+		<textarea id="puzzleinput" cols="" rows="5"></textarea>
+		<br />
+		<form action="">
+			DAY X <input id="part1" type="radio" name="part" value="1"
+				onchange="setPart(this);" checked="checked" />Part 1 <input
+				id="part2" type="radio" name="part" value="2"
+				onchange="setPart(this);" />Part 2 <input type="button"
+				value="SOLVE" onclick="main();">
+		</form>
+	</div>
+	<div id="main"></div>
 </body>
 </html>
