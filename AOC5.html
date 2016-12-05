@@ -50,6 +50,7 @@
 		clear();
 		intiValues();
 		parseInput()
+		var solutionOut = "<pre>";
 
 		// Logic
 		var count = 0;
@@ -67,12 +68,13 @@
 				} else {
 					output += newHash.substr(5, 1);
 				}
-				print(count + " - " + newHash + " - " + output);
+				solutionOut += (count + " - " + newHash + " - " + output + "\n");
 			}
 			count++;
 		}
 
 		// Output
+		print(solutionOut + "</pre>");
 		print("<b>" + output + "</b>");
 	}
 </script>
