@@ -1,0 +1,121 @@
+<html>
+<head>
+<script type="text/javascript">
+	function print(x) {
+	  var orig = document.getElementById("main").innerHTML;
+	  document.getElementById("main").innerHTML = orig + x + "<br />";
+	}
+
+	function clear() {
+	  document.getElementById("main").innerHTML = "";
+	}
+
+	function setInitInput() {
+	  document.getElementById("puzzleinput").value = initInput;
+	  if (isPart2) {
+	    document.getElementById("part2").checked = true;
+	  } else {
+	    document.getElementById("part1").checked = true;
+	  }
+	}
+
+	function setPart(x) {
+	  isPart2 = x.value == 2;
+	}
+
+	// Input/Output
+	var isPart2 = window.location.href.includes("?2");
+	var initInput = "yvaywrul\nujcsejwm\nztyzonac\nyornafia\nibmdppra\nowjqnqer\nahkzywrp\nhdhgrcol\nnxbuzmki\namwkhnhy\nznvuhmdq\njlrukhss\nuvpzvtwf\nttgizolw\nvghfbbiz\niijrfsvb\ntnmqlfqy\nmslcjslh\nezsumuxx\nxyhxqtme\nsfbsuhyh\nnewysgfj\nkbkqkeuf\nhbtkmbuf\njxxazxbp\nbpkrscwh\njbzafmiq\nvrxgosxg\nqgjkpmrb\nkicyfqgl\namxqsxsj\ndowuhqfv\ndyaexvdi\npdnmixmo\nunlqxrgw\ngwcamnpd\nqcljehdz\nyndzaqwi\nerxgzbep\nbnvtmyud\nblxsijnd\nglefcenj\nljaapkht\nnuygmaap\nclgtphyt\nevpuxtee\nkqsdjrrj\ncnpijuov\nwthtxtua\nyqjuiagg\ngzupqgvm\ngcgbyekg\napoguipr\nhfbhzhpk\nphdzjvcw\nuxcxqnfe\njqshvtus\nmcxaorkj\nahvrqirw\nwmhcagaa\nnhmbkxxg\ndlgebehd\nrjkgbxrn\nkqsegzts\nzxllgdaq\niarrmjpe\nqmabpovx\ndfttwkck\nhvlirmtd\nsieluyef\ngptbsufc\nlrectxly\ngrfhjxtr\nfivfdmjy\nibysxaed\nvavzcflk\njtvaamhh\nxrkowbdd\naalfiuqi\njwfteoqi\nbmyrqted\nruycdmhr\nljzldtja\nnczypfst\nfxmuhmbi\nqsiflxnc\ntpuqukpz\nxnkerwbu\nqvokxtrf\nyzdbpfti\npsleiqfs\npooladwj\njzwxvcgn\nsstdytzo\nhaxlzamb\nzepjnkza\nfgnongnc\nsyrxrxos\nkxwvmwsv\npuupmjkg\nqoytrnin\nkgoaddsm\napgmidlj\nflavdjcb\ngnuzxoth\nmnkjeosb\nejqmykpz\nqiqebknx\ntaujrjja\naeeftwfd\nldojryvq\npolbygse\nwosjxste\nymhfooct\njqmjkmid\npmlgfejx\nnoubmefy\nffoqwtzy\nmjcnbgmu\npoiemkay\nzpwhzlmk\ntuqswxqu\nmrsnwydd\nixixjmge\nmhbfrjuo\nexsgjblh\navhrgjri\ngdxaezen\nyknniytq\nuwmpezpd\nlajwizne\ntykpurmk\njnjwcloj\ntbntcuwe\nxusrgrsf\npngkjyna\nwkrocije\nkkixtngw\niekpbyrx\nqsodlzot\ngrvdxrhq\nurynldsy\nefntvvvu\nshokzcmt\neycychtm\nrikyjfpf\nutmhgfyu\nqgbrkwzd\nagjhhlvt\nmnounckl\nsclitqee\noatoipaj\nkuqtydvx\nmvfwpgde\notdxkifk\njdxehrse\nrdfbtqov\nhhutipis\ngckzyoow\nvjphtldv\nztkihzbt\ntcwdsxte\nlhtbtyuh\nyozkctlm\nmuhblgzn\nfylsuubl\nmjrndjql\nvczrvvbq\nnmaqedor\nuhyaafyo\nwterctsa\nxhzvwohv\nxqvurvop\nriylylux\naqhsovzj\nizpnawyp\ncpvjtlaq\nyrehnhlx\nrnuljggd\ngywmrqkm\nclduzuee\ntbikbrkg\nggjeicab\nwberwbxw\nxgzuzdjg\nunumhkty\nptpriseo\njnfygpyr\nfsfovqjj\nfsvweaoz\nkyixynpr\ntkwsrict\nbtkjqnsh\noboynuim\nojzfpfdu\ncygyjuoj\nguqwumzn\nwvrfsiyt\nxsqzzhls\npavohgir\nezinqtxl\nczezeswc\nbpcvcedi\nixwwgmrf\npisrvxqz\njsspvtyj\nrtlfkrjs\nubsslwgb\nzcxtpbkm\nsvpmdtbx\nqinfjllv\nmtprpcxo\ngcgvyfwa\nuklnzzee\nsznoxgvo\nkizkvksv\nxwhkcltx\nldjzomya\nuixumnen\nlbiwswhy\ndtfcohae\nhlmytext\nyuqxwyza\nplpockjx\nlkohqpip\netifsdbi\nyegmhwgx\nngbpplnm\nnpzcdjxs\nfsjsxcbc\nbckgkisl\nfumkfeom\niedhxuch\nuroewsgc\nijrdrpif\niwrpjnqc\noysoiibn\nsxmoluyo\nojshrdzm\ncoixnbzm\nrahgbqbh\nswswubzu\nhrssfarw\nieeychxh\ncjvrcrkr\nveiwtvrb\nbrxgqbdp\ndudhknrd\nkyoypwyn\nrbcdyidk\nikkanuec\nxnivkght\nwygdzmnl\ncvbqokzv\nxoxmywxn\nethkplnv\nyfhwlxju\nraojzvpb\nyoottlhw\nrupwoevd\nddwnaytb\nazvjrgdl\nlqyiwvna\nhkugydve\nfgsxjdns\nosipnrwq\nadcpkeox\nfayoghgq\nvarmxqrq\nxlakadzd\nwddsqsop\nkqjfqbfd\ncdoabahh\nudulalxy\nicvoqdvv\nopwgwgyz\nklyiohwo\nedawoezx\ngkpoivei\nwcmllhln\nizsbdygi\nfhcqpopj\ncpfxhsgz\nhddesugm\nlctnczgs\nhipdojpa\nzwaynfmz\nglwfftsz\noshbfgyp\nywjicsba\nlucdcsup\nnqtllilg\nfgftgoxr\nvghucjjz\nvthnskcy\nzyvfqumb\nlypfdslc\nlmkggzbw\nsxqimuhf\nuxilvbwh\nexoauzjy\njcipdhci\nsokqiypg\nikobmgup\npkxqcyid\nktpyxysi\njyagtehk\nqzkghqez\nawagoups\njeuotogq\nwzqmdpou\ntjofgimo\neystazux\nhntkjpzk\nwrykvfsh\nzsvcvvte\ndeptmrwr\nmhfqtitw\nahqyfhlw\nsxwzkoky\ndxlbcpzj\nncqhdqsx\nqcbnlttb\necnibawi\nqqcwgxun\nkseizswa\nyarddiul\nhrqjqksf\nsgbhpbqm\ndxfxernk\niavmtzql\nekmhlgkt\nomdilugt\nljqwvohg\nfmrakdjp\nvqanxphj\nuvbhhduh\nxbqjqymc\ndflehzea\nsmgbvzzl\nvafsagbm\nfktglojj\nmeyffxdv\nmcolnmts\nxhgepxgq\nrxlvweva\nxwcvtqxv\ndnvomckh\ntcrprafj\nlptvaoqv\nxvpvkffq\nvgnxvuod\nwifwjnch\nbaaflxla\nmwctffod\nwvhupvky\ndlhrekcr\ndveanwuj\nqdtzafxp\nypzmmwlu\ngslwkrnm\npscqnadd\nciahqdbc\nwtmmzaiz\nyjmelify\nkvnmpzab\ntbxeimao\nddmxcvdv\npmuqbpio\nqxjlswkb\nwweuuczq\nrycckvrk\nzedfuqmw\nsbknyoln\nnwrcieve\nwsgxawds\nzgricrdi\nnhuhflzi\nbdmlhqav\novqznifk\nhlwrpnep\nezavuysi\nkjmpsuqf\nfetgdtdb\nqpuoqckn\nxugvazxp\nzktlactb\ndbopyqyz\nbonsxzil\niqcjqaqt\njnymuitf\npckdhqak\nnhkivjnl\nbmpnjacv\nclknrccx\naydltwjy\ntujsucks\ncwainpiv\nhyyvtnzi\nrgjvypev\nfiuvqrqb\nvhnpbdip\nkiyvwfvf\nvkzveiaf\nzjfrxfsq\nszwuxceu\nzazdbtam\nhhstxizc\njuotcvme\nzirhlbyy\ndpjmewwc\nmyhwvwbv\nezpesvlw\ngkwgocfq\nzsqoyvfe\nuexbupnl\nkglbsatp\nqlfcxyps\nbodyxccq\nswuxnfao\nzfevvcbo\nnlpanwdi\nyjoavnnt\nxgqbgsez\nithqwwoc\nnzfnbtnw\nlrxwziue\nlmddnnmi\nfoiqbray\nrkwunijn\nodcuuxqx\novuxbyga\nwhnvmyqr\nunflbbms\nsgcgnxmr\nldjqvayy\nhovigjig\nsditfypy\nsileoqfh\neflcfjvj\naimowvxm\nldgaabqu\ncjndkicj\noundpkxw\nsfbeerto\nbqioiavi\naawkkmyz\navdujvya\nektrilke\nkpdkfzqj\nvfccaofu\nwueprjpg\naodohgrb\nzmgzjxxx\ndfrxqspm\nvyqlvjuo\ntbagellj\ntiingjqk\ncqlzqcym\ndxezyqom\nxebyhxbc\ntwfazwwu\nxrybgxuu\nojyqvalg\nxlamezzg\ndivculwc\njleeahcw\netdccjgj\nvwqfguwq\nrhqqorhl\nyzdbczxt\nagnmiibs\nwkjmwnyw\nesbrfzjf\noziornmm\nsanheboy\nzbbcovqp\niggvgbfc\noqbrdqlz\nmajzpyih\nwsyeusqh\nfbddsajg\nbpzzdbhp\njwaifckr\nifbrwphk\npyzsowew\nquhmqhnt\ndfejtbct\notevtaln\nbxzpydbi\newzlegng\nghghlzos\nulpskmjf\nughqkpnv\nwafnwoho\nhwcmexio\nliryreus\nujjsrakf\nzqwkmhxc\ncqffzkrz\niumgsdvo\nfscgjpbx\nmfrroqfq\nukiosfpo\nthlfmmxx\nmkexdlxv\nmbzespbp\ncqschicn\nbqrehhlz\nhuawdjdg\nkqxvantv\nnoubxycq\novamzoou\nfempltqr\nazjnwdfz\nbctzxppw\ndgearltb\nehwujrdu\nxrujgyan\notzivkvt\nhqtyvpok\nzrejukjq\ngvwzjspl\nddtdstwg\nvsokesrc\nlrbjunkh\nqcfifdol\nhfqxdccp\nbvswbpkg\nbtlrrimb\ncifmbvbl\nspmcnsva\nwjbwpgql\npxbjtkur\nhlscoqck\ngytwpjwb\nbedebzhn\njdhumkeb\nsmtvkowh\nzmdphbcr\ncshizvqc\nnmwldxmc\nioscnnic\nexxwsskg\nhkmptdai\nyotteevn\nphvtfmra\nfreitcgb\nqbyxkzyw\nvuawzjry\nvuyckdaw\nojlhhdyw\njegayhky\npkbautcf\nkpwkeear\npeggwlgs\nxngkymtl\ntfidfghf\njfrlzqzw\nuxonsrju\nkrchghzg\nngastvbn\njpwimnwf\nilucyoda\nqmxqslfm\nvvxkbawg\nkzbvegkr\nnmfwqkvv\nyaihlssu\nykqeqwxg\nuxsuakck\nozydpnus\nxbukntpz\nqftbywyk\nbnzrouhp\nnbptgswf\ngrivgntq\nlrznwphn\npggjdgpv\nvedplgmz\nrrvddhrk\noorxssrg\nrwxceuqg\nffphaxam\nvuncoerp\njftdwmrx\nqfqmbono\ngjnvfecq\ndmvldovn\niwyuuexk\novnbkfxa\nciqbrlhe\nmqcpuwdc\nkzfablph\nnkglhraz\npayjujas\ntoexirfb\ntjxklauf\nmadpfkan\ngtqcmjik\nwzkyzvto\nnmvlokmz\nlpncbbop\nrwjlbsjr\nhblomsdt\nmiryjfjr\nzzmjfqwl\nezpnamvh\nqfstlbdd\nclbtxrmk\nnauizuhr\nhxniwall\ntphbrpni\nclapconx\nbsxthfpo\nfynijbet\nrnusrpyf\nrnpywyej\nremfmjzr\nyecxabru\nyceqnemf\nmpbalkid\ntszdkfsw\ncvzqdfes\nqebpouuv\nzpvzgejt\nlfemvcku\nbmioeijz\nrebyitlk\npdzeqeit\nyrtnxncc\nrqxjgmih\nvvgsmabl\ndyksiefo\nmtjsuvmu\nnbsdfhuq\nwmrzthvu\nruuyhayy\nulakolir\napjjilmt\ngckusufb\nawrafegs\nxqfoscgx\ncrzylcro\njhnjifqu\naddsjzsm\nufjsgyvu\ntonzyhgx\nbetqoosk\ntngznlfd";
+	//var initInput = "eedadn\ndrvtee\neandsr\nraavrd\natevrs\ntsrnev\nsdttsa\nrasrtv\nnssdts\nntnada\nsvetve\ntesnvt\nvntsnd\nvrdear\ndvrsen\nenarar"; // Part 1/2 Sample Input
+	var input = "";
+	var output = "";
+
+	function parseInput() {
+	  input = document.getElementById("puzzleinput").value.split("\n");
+	}
+
+	// Variables
+	var counts = [];
+	var max = [];
+
+	function intiValues() {
+	  counts = [];
+	  max = [];
+	}
+
+	function main() {
+	  // Initialize
+	  clear();
+	  intiValues();
+	  parseInput()
+
+	  // Logic
+	  for (x of input) {
+	    for (var i = 0; i < x.length; i++) {
+	      var thisChar = x.charAt(i);
+	      if (!counts[i]) {
+	        counts[i] = [];
+	      }
+	      if (counts[i][thisChar]) {
+	        counts[i][thisChar]++;
+	      } else {
+	        counts[i][thisChar] = 1;
+	      }
+	    }
+	  }
+
+	  for (var i = 0; i < counts.length; i++) {
+	    if (!max[i]) {
+	      max[i] = 'a';
+	    }
+	    for (x in counts[i]) {
+	      if (isPart2) {
+	        if (counts[i][x] < counts[i][max[i]]) {
+	          max[i] = x;
+	        }
+	      } else {
+	        if (counts[i][x] > counts[i][max[i]]) {
+	          max[i] = x;
+	        }
+	      }
+	    }
+	  }
+	  output = max.join("");
+
+	  // Output
+	  print("<b>" + output + "</b>");
+	}
+</script>
+<style type="text/css">
+body {
+	background-color: #CCCCCC;
+}
+
+#input, #puzzleinput {
+	width: 100%;
+}
+
+#puzzleinput {
+	white-space: nowrap;
+}
+
+#input {
+	margin-bottom: 1em;
+}
+</style>
+</head>
+<body onload="setInitInput();">
+	<div id="input">
+		<textarea id="puzzleinput" cols="" rows="5"></textarea>
+		<br />
+		<form action="">
+			DAY X <input id="part1" type="radio" name="part" value="1"
+				onchange="setPart(this);" checked="checked" />Part 1 <input
+				id="part2" type="radio" name="part" value="2"
+				onchange="setPart(this);" />Part 2 <input type="button"
+				value="SOLVE" onclick="main();">
+		</form>
+	</div>
+	<div id="main"></div>
+</body>
+</html>
