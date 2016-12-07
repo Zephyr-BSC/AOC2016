@@ -1,26 +1,26 @@
 <html>
 <head>
 <script type="text/javascript">
-	function print(x) {
-		var orig = document.getElementById("main").innerHTML;
-		document.getElementById("main").innerHTML = orig + x + "<br />";
+function print(x) {
+	  var orig = document.getElementById("main").innerHTML;
+	  document.getElementById("main").innerHTML = orig + x + "<br />";
 	}
 
 	function clear() {
-		document.getElementById("main").innerHTML = "";
+	  document.getElementById("main").innerHTML = "";
 	}
 
 	function setInitInput() {
-		document.getElementById("puzzleinput").value = initInput;
-		if (isPart2) {
-			document.getElementById("part2").checked = true;
-		} else {
-			document.getElementById("part1").checked = true;
-		}
+	  document.getElementById("puzzleinput").value = initInput;
+	  if (isPart2) {
+	    document.getElementById("part2").checked = true;
+	  } else {
+	    document.getElementById("part1").checked = true;
+	  }
 	}
 
 	function setPart(x) {
-		isPart2 = x.value == 2;
+	  isPart2 = x.value == 2;
 	}
 
 	// Input/Output
@@ -32,98 +32,98 @@
 	var output = "";
 
 	function parseInput() {
-		input = document.getElementById("puzzleinput").value.split("\n");
+	  input = document.getElementById("puzzleinput").value.split("\n");
 	}
 
 	// Variables
 
 	function intiValues() {
-		output = 0;
+	  output = 0;
 	}
-	
-	function hasABBA(x){
-		var out = false;
-		if(x.length < 4){
-			return false;
-		}
-		for(var i = 0; i <= x.length-4; i++){
-			var a1 = x.charAt(i);
-			var b1 = x.charAt(i+1);
-			var b2 = x.charAt(i+2);
-			var a2 = x.charAt(i+3);
-			out = out || (a1 == a2 && b1 == b2 && a1 != b1);
-		}
-		return out;
+
+	function hasABBA(x) {
+	  var out = false;
+	  if (x.length < 4) {
+	    return false;
+	  }
+	  for (var i = 0; i <= x.length - 4; i++) {
+	    var a1 = x.charAt(i);
+	    var b1 = x.charAt(i + 1);
+	    var b2 = x.charAt(i + 2);
+	    var a2 = x.charAt(i + 3);
+	    out = out || (a1 == a2 && b1 == b2 && a1 != b1);
+	  }
+	  return out;
 	}
-	
-	function hasABA(x){
-		var out = [];
-		if(x.length < 3){
-			return [];
-		}
-		for(var i = 0; i <= x.length-3; i++){
-			var a1 = x.charAt(i);
-			var b1 = x.charAt(i+1);
-			var a2 = x.charAt(i+2);
-			if(a1 == a2 && a1 != b1){
-				out.push(a1 + b1 + a2);
-			}
-		}
-		return out;
+
+	function hasABA(x) {
+	  var out = [];
+	  if (x.length < 3) {
+	    return [];
+	  }
+	  for (var i = 0; i <= x.length - 3; i++) {
+	    var a1 = x.charAt(i);
+	    var b1 = x.charAt(i + 1);
+	    var a2 = x.charAt(i + 2);
+	    if (a1 == a2 && a1 != b1) {
+	      out.push(a1 + b1 + a2);
+	    }
+	  }
+	  return out;
 	}
 
 	function main() {
-		// Initialize
-		clear();
-		intiValues();
-		parseInput()
+	  // Initialize
+	  clear();
+	  intiValues();
+	  parseInput()
 
-		// Logic
-		for(x of input){
-			ips = x.split(/(\[[^\]]*])/);
-			if(isPart2){
-				// Part 2
-				var supernet = "";
-				var hypernet = "";
-				for(ip of ips){
-					if(ip.charAt(0) == "["){
-						hypernet += ip;
-					}else{
-						supernet += ip + "|";
-					}
-				}
-				var ABAs = hasABA(supernet);
-				var hasAbaBab = false;
-				for(aba of ABAs){
-					var bab = aba.charAt(1)+aba.charAt(0)+aba.charAt(1);
-					hasAbaBab = hasAbaBab || hypernet.includes(bab);
-				}
-				print(x + " - " + hasAbaBab);
-				if(hasAbaBab){
-					output++;
-				}
-			}else{
-				// Part 1
-				var hasTSL = false;
-				for(var i = 0; i < ips.length; i++){
-					if(ips[i].charAt(0) == "["){
-						if(hasABBA(ips[i])){
-							hasTSL = false;
-							break;
-						}
-					}else{
-						hasTSL = hasTSL || hasABBA(ips[i]);
-					}
-				}
-				print(x + " - " + hasTSL);
-				if(hasTSL){
-					output++;
-				}
-			}
-		}
+	  // Logic
+	  for (x of input) {
+	    ips = x.split(/(\[[^\]]*])/);
+	    if (isPart2) {
+	      // Part 2
+	      var supernet = "";
+	      var hypernet = "";
+	      for (ip of ips) {
+	        if (ip.charAt(0) == "[") {
+	          hypernet += ip;
+	        } else {
+	          supernet += ip + "|";
+	        }
+	      }
+	      var ABAs = hasABA(supernet);
+	      var hasAbaBab = false;
+	      for (aba of ABAs) {
+	        var bab = aba.charAt(1) + aba.charAt(0) + aba.charAt(1);
+	        hasAbaBab = hasAbaBab || hypernet.includes(bab);
+	      }
+	      print(x + " - " + hasAbaBab);
+	      if (hasAbaBab) {
+	        output++;
+	      }
+	    } else {
+	      // Part 1
+	      var hasTSL = false;
+	      for (var i = 0; i < ips.length; i++) {
+	        if (ips[i].charAt(0) == "[") {
+	          if (hasABBA(ips[i])) {
+	            hasTSL = false;
+	            break;
+	          }
+	        } else {
+	          hasTSL = hasTSL || hasABBA(ips[i]);
+	        }
+	      }
+	      print(x + " - " + hasTSL);
+	      if (hasTSL) {
+	        output++;
+	      }
+	    }
+	  }
 
-		// Output
-		print("<b>" + output + "</b>");
+	  // Output
+	  print("<b>" + output + "</b>");
 	}
 </script>
 <style type="text/css">
