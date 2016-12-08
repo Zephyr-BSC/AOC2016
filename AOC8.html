@@ -1,0 +1,248 @@
+<html>
+<head>
+<script type="text/javascript">
+function print(x) {
+	  var orig = document.getElementById("main").innerHTML;
+	  document.getElementById("main").innerHTML = orig + x + "<br />";
+	}
+
+	function clear() {
+	  document.getElementById("main").innerHTML = "";
+	}
+
+	function setInitInput() {
+	  document.getElementById("puzzleinput").value = initInput;
+	  if (isPart2) {
+	    document.getElementById("part2").checked = true;
+	  } else {
+	    document.getElementById("part1").checked = true;
+	  }
+	  main();
+	}
+
+	function setPart(x) {
+	  isPart2 = x.value == 2;
+	}
+
+	// Input/Output
+	var isPart2 = window.location.href.includes("?2");
+	var initInput = "rect 1x1\nrotate row y=0 by 5\nrect 1x1\nrotate row y=0 by 5\nrect 1x1\nrotate row y=0 by 5\nrect 1x1\nrotate row y=0 by 5\nrect 1x1\nrotate row y=0 by 2\nrect 1x1\nrotate row y=0 by 2\nrect 1x1\nrotate row y=0 by 3\nrect 1x1\nrotate row y=0 by 3\nrect 2x1\nrotate row y=0 by 2\nrect 1x1\nrotate row y=0 by 3\nrect 2x1\nrotate row y=0 by 2\nrect 1x1\nrotate row y=0 by 3\nrect 2x1\nrotate row y=0 by 5\nrect 4x1\nrotate row y=0 by 5\nrotate column x=0 by 1\nrect 4x1\nrotate row y=0 by 10\nrotate column x=5 by 2\nrotate column x=0 by 1\nrect 9x1\nrotate row y=2 by 5\nrotate row y=0 by 5\nrotate column x=0 by 1\nrect 4x1\nrotate row y=2 by 5\nrotate row y=0 by 5\nrotate column x=0 by 1\nrect 4x1\nrotate column x=40 by 1\nrotate column x=27 by 1\nrotate column x=22 by 1\nrotate column x=17 by 1\nrotate column x=12 by 1\nrotate column x=7 by 1\nrotate column x=2 by 1\nrotate row y=2 by 5\nrotate row y=1 by 3\nrotate row y=0 by 5\nrect 1x3\nrotate row y=2 by 10\nrotate row y=1 by 7\nrotate row y=0 by 2\nrotate column x=3 by 2\nrotate column x=2 by 1\nrotate column x=0 by 1\nrect 4x1\nrotate row y=2 by 5\nrotate row y=1 by 3\nrotate row y=0 by 3\nrect 1x3\nrotate column x=45 by 1\nrotate row y=2 by 7\nrotate row y=1 by 10\nrotate row y=0 by 2\nrotate column x=3 by 1\nrotate column x=2 by 2\nrotate column x=0 by 1\nrect 4x1\nrotate row y=2 by 13\nrotate row y=0 by 5\nrotate column x=3 by 1\nrotate column x=0 by 1\nrect 4x1\nrotate row y=3 by 10\nrotate row y=2 by 10\nrotate row y=0 by 5\nrotate column x=3 by 1\nrotate column x=2 by 1\nrotate column x=0 by 1\nrect 4x1\nrotate row y=3 by 8\nrotate row y=0 by 5\nrotate column x=3 by 1\nrotate column x=2 by 1\nrotate column x=0 by 1\nrect 4x1\nrotate row y=3 by 17\nrotate row y=2 by 20\nrotate row y=0 by 15\nrotate column x=13 by 1\nrotate column x=12 by 3\nrotate column x=10 by 1\nrotate column x=8 by 1\nrotate column x=7 by 2\nrotate column x=6 by 1\nrotate column x=5 by 1\nrotate column x=3 by 1\nrotate column x=2 by 2\nrotate column x=0 by 1\nrect 14x1\nrotate row y=1 by 47\nrotate column x=9 by 1\nrotate column x=4 by 1\nrotate row y=3 by 3\nrotate row y=2 by 10\nrotate row y=1 by 8\nrotate row y=0 by 5\nrotate column x=2 by 2\nrotate column x=0 by 2\nrect 3x2\nrotate row y=3 by 12\nrotate row y=2 by 10\nrotate row y=0 by 10\nrotate column x=8 by 1\nrotate column x=7 by 3\nrotate column x=5 by 1\nrotate column x=3 by 1\nrotate column x=2 by 1\nrotate column x=1 by 1\nrotate column x=0 by 1\nrect 9x1\nrotate row y=0 by 20\nrotate column x=46 by 1\nrotate row y=4 by 17\nrotate row y=3 by 10\nrotate row y=2 by 10\nrotate row y=1 by 5\nrotate column x=8 by 1\nrotate column x=7 by 1\nrotate column x=6 by 1\nrotate column x=5 by 1\nrotate column x=3 by 1\nrotate column x=2 by 2\nrotate column x=1 by 1\nrotate column x=0 by 1\nrect 9x1\nrotate column x=32 by 4\nrotate row y=4 by 33\nrotate row y=3 by 5\nrotate row y=2 by 15\nrotate row y=0 by 15\nrotate column x=13 by 1\nrotate column x=12 by 3\nrotate column x=10 by 1\nrotate column x=8 by 1\nrotate column x=7 by 2\nrotate column x=6 by 1\nrotate column x=5 by 1\nrotate column x=3 by 1\nrotate column x=2 by 1\nrotate column x=1 by 1\nrotate column x=0 by 1\nrect 14x1\nrotate column x=39 by 3\nrotate column x=35 by 4\nrotate column x=20 by 4\nrotate column x=19 by 3\nrotate column x=10 by 4\nrotate column x=9 by 3\nrotate column x=8 by 3\nrotate column x=5 by 4\nrotate column x=4 by 3\nrotate row y=5 by 5\nrotate row y=4 by 5\nrotate row y=3 by 33\nrotate row y=1 by 30\nrotate column x=48 by 1\nrotate column x=47 by 5\nrotate column x=46 by 5\nrotate column x=45 by 1\nrotate column x=43 by 1\nrotate column x=38 by 3\nrotate column x=37 by 3\nrotate column x=36 by 5\nrotate column x=35 by 1\nrotate column x=33 by 1\nrotate column x=32 by 5\nrotate column x=31 by 5\nrotate column x=30 by 1\nrotate column x=23 by 4\nrotate column x=22 by 3\nrotate column x=21 by 3\nrotate column x=20 by 1\nrotate column x=12 by 2\nrotate column x=11 by 2\nrotate column x=3 by 5\nrotate column x=2 by 5\nrotate column x=1 by 3\nrotate column x=0 by 4";
+	//var initInput = "rect 3x2\nrotate column x=1 by 1\nrotate row y=0 by 4\nrotate column x=1 by 1"; // Part 1 Sample Input
+	var input = "";
+	var output = "";
+
+	function parseInput() {
+	  input = document.getElementById("puzzleinput").value.split("\n");
+	}
+
+	// Variables
+	var display = [];
+	var count = 0;
+	var totRows = 6;
+	var totCols = 50;
+	var timout = 30;
+	var myTimer;
+
+	function initValues() {
+	  count = 0;
+	  for (var i = 0; i < totRows; i++) {
+	    display[i] = [];
+	    for (var j = 0; j < totCols; j++) {
+	      display[i][j] = 0;
+	    }
+	  }
+	}
+
+	// Add an array
+	function sumArray(x) {
+	  return x.reduce(function(a, b) {
+	    return a.concat(b);
+	  }, []).reduce(function(a, b) {
+	    return a + b;
+	  }, 0);
+	}
+
+	// converts rotate commands into individual steps for animation
+	function expandSteps() {
+	  for (var i = 0; i < input.length; i++) {
+	    var x = input[i].split(" ");
+	    if (x[0] == "rotate") {
+	      var out = x[0] + " " + x[1] + " " + x[2] + " " + x[3] + " 1";
+	      var y = parseInt(x[4]);
+	      var newSteps = [];
+	      for (var j = 0; j < y; j++) {
+	        newSteps.push(out);
+	      }
+	      Array.prototype.splice.apply(input, [i, 1].concat(newSteps));
+	    }
+	  }
+	}
+
+	function printBoard() {
+	  var out = "<pre>";
+	  for (x of display) {
+	    for (y of x) {
+	      out += y ? "#" : ".";
+	    }
+	    out += "\n";
+	  }
+	  out += "</pre>";
+	  print(out);
+	}
+
+	function printBoard2() {
+	  var out = "<pre>";
+	  for (x of display) {
+	    for (y of x) {
+	      out += y ? "<span class='full'>#</span>" : "<span class='empty'>.</span>";
+	    }
+	    out += "\n";
+	  }
+	  out += "</pre>";
+	  print(out);
+	}
+
+	function printBoardTable() {
+	  var out = "<table>";
+	  for (x of display) {
+	    out += "<tr>"
+	    for (y of x) {
+	      out += y ? "<td class='full'>&nbsp;</td>" : "<td class='empty'>&nbsp;</td>";
+	    }
+	    out += "</tr>\n";
+	  }
+	  out += "</table>";
+	  print(out);
+	}
+
+	function printBoardOnce() {
+	  clear();
+	  printBoard();
+	  printBoard2()
+	  printBoardTable();
+	}
+
+	function updateDisplay(x) {
+	  x = x.split(" ");
+	  switch (x[0]) {
+	    case "rect":
+	      var dims = x[1].split("x");
+	      for (var i = 0; i < dims[1]; i++) {
+	        for (var j = 0; j < dims[0]; j++) {
+	          display[i][j] = 1;
+	        }
+	      }
+	      break;
+	    case "rotate":
+	      rotate(x);
+	      break
+	  }
+	}
+
+	function rotate(x) {
+	  var curRow = parseInt(x[2].substring(x[2].indexOf("=") + 1));
+	  var moves = parseInt(x[4]);
+	  switch (x[1]) {
+	    case "column":
+	      var newCol = [];
+	      for (var i = 0; i < display.length; i++) {
+	        newCol[(i + moves) % display.length] = display[i][curRow];
+	      }
+	      for (var i = 0; i < display.length; i++) {
+	        display[i][curRow] = newCol[i];
+	      }
+	      break;
+	    case "row":
+	      var newRow = display[curRow].slice();
+	      for (var i = 0; i < newRow.length; i++) {
+	        newRow[(i + moves) % newRow.length] = display[curRow][i];
+	      }
+	      display[curRow] = newRow;
+	      break;
+	  }
+	}
+
+	function playStep() {
+	  if (count == input.length) {
+	    clearInterval(myTimer);
+	    output = sumArray(display);
+	    if (!isPart2) {
+	      print("<b>" + output + "</b>");
+	    }
+	    return;
+	  } else {
+	    updateDisplay(input[count++]);
+	    printBoardOnce();
+	  }
+	}
+
+	function main() {
+	  // Initialize
+	  clear();
+	  initValues();
+	  parseInput()
+
+	  // Logic
+	  expandSteps();
+	  printBoardOnce();
+	  myTimer = setInterval(playStep, timout);
+	}
+</script>
+<style type="text/css">
+body {
+	background-color: #CCCCCC;
+}
+
+#input, #puzzleinput {
+	width: 100%;
+}
+
+#puzzleinput {
+	white-space: nowrap;
+}
+
+#input {
+	margin-bottom: 1em;
+}
+
+pre {
+	color: red;
+}
+
+td.full {
+	background-color: red;
+}
+
+span.full {
+	color: red;
+}
+
+span.empty {
+	color: black;
+}
+
+td {
+	width: 1em;
+	height: 1em;
+}
+
+table {
+	border: 1px solid black;
+}
+</style>
+</head>
+<body onload="setInitInput();">
+	<div id="input">
+		<textarea id="puzzleinput" cols="" rows="5"></textarea>
+		<br />
+		<form action="">
+			DAY 8 <input id="part1" type="radio" name="part" value="1"
+				onchange="setPart(this);" checked="checked" />Part 1 <input
+				id="part2" type="radio" name="part" value="2"
+				onchange="setPart(this);" />Part 2 <input type="button"
+				value="SOLVE" onclick="main();">
+		</form>
+	</div>
+	<div id="main"></div>
+</body>
+</html>
