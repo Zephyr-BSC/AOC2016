@@ -114,7 +114,7 @@
 		parseInput()
 
 		// Logic
-		var start = new Date().getTime();
+		var start = performance.now();
 		if (isPart2) {
 			output = decompressNum(input);
 			// Output
@@ -125,7 +125,7 @@
 			// Output
 			print("<b>" + output.length + "</b>");
 		}
-		var end = new Date().getTime();
+		var end = performance.now();
 		var time = end - start;
 		print("Execution time: " + time + "ms");
 	}
