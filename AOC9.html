@@ -44,6 +44,8 @@
 	}
 
 	// Variables
+	var insEnd;
+	var instructions
 
 	function initValues() {
 		output = "";
@@ -58,8 +60,8 @@
 				out += curChar;
 				position++;
 			} else {
-				var insEnd = x.indexOf(")", position);
-				var instructions = x.substring(position + 1, insEnd).split("x");
+				insEnd = x.indexOf(")", position);
+				instructions = x.substring(position + 1, insEnd).split("x");
 				instructions = instructions.map(function(x) {
 					return parseInt(x);
 				});
@@ -85,8 +87,8 @@
 				out++;
 				position++;
 			} else {
-				var insEnd = x.indexOf(")", position);
-				var instructions = x.substring(position + 1, insEnd).split("x");
+				insEnd = x.indexOf(")", position);
+				instructions = x.substring(position + 1, insEnd).split("x");
 				instructions = instructions.map(function(x) {
 					return parseInt(x);
 				});
@@ -94,9 +96,6 @@
 				var unPack = x.substr(position, instructions[0]);
 				position += instructions[0];
 				unPack = unPack.repeat(instructions[1]);
-				//clean up?
-				insEnd = null;
-				instructions = null;
 				if (isPart2) {
 					unPack = decompressNum(unPack);
 				} else {
@@ -115,6 +114,7 @@
 		parseInput()
 
 		// Logic
+		var start = new Date().getTime();
 		if (isPart2) {
 			output = decompressNum(input);
 			// Output
@@ -125,6 +125,9 @@
 			// Output
 			print("<b>" + output.length + "</b>");
 		}
+		var end = new Date().getTime();
+		var time = end - start;
+		print("Execution time: " + time + "ms");
 	}
 </script>
 <style type="text/css">
