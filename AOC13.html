@@ -1,0 +1,259 @@
+<html>
+<head>
+<script type="text/javascript">
+function print(x) {
+	  var orig = document.getElementById("main").innerHTML;
+	  document.getElementById("main").innerHTML = orig + x + "<br />";
+	}
+
+	function clear() {
+	  document.getElementById("main").innerHTML = "";
+	}
+
+	function setInitInput() {
+	  document.getElementById("puzzleinput").value = initInput;
+	  if (isPart2) {
+	    document.getElementById("part2").checked = true;
+	  } else {
+	    document.getElementById("part1").checked = true;
+	  }
+	}
+
+	function setPart(x) {
+	  isPart2 = x.value == 2;
+	}
+
+	// Input/Output
+	var isPart2 = window.location.href.includes("?2");
+	var initInput = "1364";
+	//var initInput = "10"; // Part 1 Sample Input
+	//var initInput = ""; // Part 2 Sample Input
+	var input = "";
+	var output = "";
+
+	function parseInput() {
+	  input = parseInt(document.getElementById("puzzleinput").value);
+	}
+
+	// Variables
+	var destx = 31;
+	var desty = 39;
+	//var destx = 7; // Part 1 Sample Input
+	//var desty = 4; // Part 1 Sample Input
+	var maxx;
+	var maxy;
+	var startx = 1;
+	var starty = 1;
+	var minMoves;
+	var winMoves;
+	var totMoves;
+
+	function initValues() {
+	  minMoves = -1
+	  maxx = Math.max(startx, destx);
+	  maxy = Math.max(starty, desty);
+	  totMoves = [];
+	}
+
+	// Add an array
+	function sumArray(x) {
+	  return x.reduce(function(a, b) {
+	    return a.concat(b);
+	  }, []).reduce(function(a, b) {
+	    return a + b;
+	  }, 0);
+	}
+
+	function printBoard(showMinPath = false) {
+	  var out = [];
+	  var disp = "";
+	  for (var i = 0; i <= maxy; i++) {
+	    out[i] = [];
+	    for (var j = 0; j <= maxx; j++) {
+	      out[i].push(isWall(j, i) ? "#" : ".");
+	    }
+	  }
+	  // add solution path
+	  if (showMinPath) {
+	    if (isPart2) {
+	      for (var i = 0; i < totMoves.length; i++) {
+	        for (var j = 0; j < totMoves[i].length; j++) {
+	          if (totMoves[i][j] == 1) {
+	            out[i][j] = 'O';
+	          }
+	        }
+	      }
+	    } else {
+	      for (x of winMoves) {
+	        out[x[1]][x[0]] = 'O';
+	      }
+	    }
+	  }
+	  // make it pretty
+	  for (var i = 0; i < out.length; i++) {
+	    disp += out[i].join('') + "\n";
+	  }
+	  return disp;
+	}
+
+	function num1Bits(x) {
+	  for (var count = 0; x; count++)
+	    x &= x - 1;
+	  return count;
+	}
+
+	function isWall(x, y) {
+	  var temp = x * x + 3 * x + 2 * x * y + y + y * y + input;
+	  return num1Bits(temp) % 2 == 1;
+	}
+
+	function beenThere(x, y) {
+	  for (i of y) {
+	    if (i[0] == x[0] && i[1] == x[1]) {
+	      return true;
+	    }
+	  }
+	  return false;
+	}
+
+	function availableMoves(x, y, z) {
+	  var moves = [];
+	  if (x > 0 && !isWall(x - 1, y)) {
+	    if (!beenThere([x - 1, y], z)) {
+	      moves.push([x - 1, y]);
+	    }
+	  }
+	  if (!isWall(x + 1, y)) {
+	    if (!beenThere([x + 1, y], z)) {
+	      moves.push([x + 1, y]);
+	    }
+	  }
+	  if (y > 0 && !isWall(x, y - 1)) {
+	    if (!beenThere([x, y - 1], z)) {
+	      moves.push([x, y - 1]);
+	    }
+	  }
+	  if (!isWall(x, y + 1)) {
+	    if (!beenThere([x, y + 1], z)) {
+	      moves.push([x, y + 1]);
+	    }
+	  }
+	  // sort by move that brings us closer to desitnation
+	  moves.sort(function(a, b) {
+	    var diffxA = (Math.abs(destx - x) - Math.abs(destx - a[0])) * Math.abs(destx - x);
+	    var diffyA = (Math.abs(desty - y) - Math.abs(desty - a[1])) * Math.abs(desty - y);
+	    var diffxB = (Math.abs(destx - x) - Math.abs(destx - b[0])) * Math.abs(destx - x);
+	    var diffyB = (Math.abs(desty - y) - Math.abs(desty - b[1])) * Math.abs(desty - y);
+	    return (diffxB + diffyB) - (diffxA + diffyA);
+	  });
+	  return moves;
+	}
+
+	function addMove(x, y) {
+	  // expand if needed
+	  for (var i = 0; i <= y; i++) {
+	    if (!totMoves[i]) {
+	      totMoves[i] = [];
+	    }
+	    for (var j = totMoves[i].length; j <= x; j++) {
+	      if (!totMoves[i][j]) {
+	        totMoves[i].push(0);
+	      }
+	    }
+	  }
+	  // add value
+	  totMoves[y][x] = 1;
+	}
+
+	function shortestPath(myx, myy, z, level) {
+	  //check boundaries
+	  if (myx > maxx) {
+	    maxx = myx;
+	  }
+	  if (myy > maxy) {
+	    maxy = myy;
+	  }
+	  // check for solution
+	  if (myy == desty && myx == destx) {
+	    if (minMoves == -1 || level < minMoves) {
+	      minMoves = level;
+	      winMoves = JSON.parse(JSON.stringify(z));
+	    }
+	  }
+	  //stop if already longer than min
+	  if (!isPart2 && minMoves != -1 && level > minMoves) {
+	    return;
+	  }
+	  if (isPart2) {
+	    // add current move to list
+	    addMove(myx, myy);
+	    if (level == 50) {
+	      return;
+	    }
+	  }
+	  var prevSpots = JSON.parse(JSON.stringify(z)); // ugly copy
+	  var thesemoves = availableMoves(myx, myy, prevSpots);
+	  if (thesemoves.length == 0) {
+	    return -1;
+	  }
+
+	  for (move of thesemoves) {
+	    var newPath = JSON.parse(JSON.stringify(z))
+	    newPath.push(move);
+	    shortestPath(move[0], move[1], newPath, level + 1);
+	  }
+	}
+
+	function main() {
+	  // Initialize
+	  clear();
+	  initValues();
+	  parseInput()
+
+	  // Logic
+	  shortestPath(startx, starty, [
+	    [startx, starty]
+	  ], 0);
+
+	  // Output
+	  print("<pre>" + printBoard(true) + "</pre>");
+	  if (isPart2) {
+		print("<b>" + sumArray(totMoves) + " spaces</b>");
+	  } else {
+	    print("<b>" + minMoves + " moves</b>");
+	  }
+	}
+</script>
+<style type="text/css">
+body {
+	background-color: #CCCCCC;
+}
+
+#input, #puzzleinput {
+	width: 100%;
+}
+
+#puzzleinput {
+	white-space: nowrap;
+}
+
+#input {
+	margin-bottom: 1em;
+}
+</style>
+</head>
+<body onload="setInitInput();">
+	<div id="input">
+		<textarea id="puzzleinput" cols="" rows="5"></textarea>
+		<br />
+		<form action="">
+			DAY 13 <input id="part1" type="radio" name="part" value="1"
+				onchange="setPart(this);" checked="checked" />Part 1 <input
+				id="part2" type="radio" name="part" value="2"
+				onchange="setPart(this);" />Part 2 <input type="button"
+				value="SOLVE" onclick="main();">
+		</form>
+	</div>
+	<div id="main"></div>
+</body>
+</html>
