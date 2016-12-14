@@ -1,0 +1,131 @@
+<html>
+<head>
+<script src="md5.js" type="text/javascript"></script>
+<script type="text/javascript">
+function print(x) {
+	  var orig = document.getElementById("main").innerHTML;
+	  document.getElementById("main").innerHTML = orig + x + "<br />";
+	}
+
+	function clear() {
+	  document.getElementById("main").innerHTML = "";
+	}
+
+	function setInitInput() {
+	  document.getElementById("puzzleinput").value = initInput;
+	  if (isPart2) {
+	    document.getElementById("part2").checked = true;
+	  } else {
+	    document.getElementById("part1").checked = true;
+	  }
+	}
+
+	function setPart(x) {
+	  isPart2 = x.value == 2;
+	}
+
+	// Input/Output
+	var isPart2 = window.location.href.includes("?2");
+	var initInput = "yjdafjpo";
+	//var initInput = "abc"; // Part 1 Sample Input
+	//var initInput = ""; // Part 2 Sample Input
+	var input = "";
+	var output = "";
+
+	function parseInput() {
+	  input = document.getElementById("puzzleinput").value;
+	}
+
+	// Variables
+
+	function initValues() {
+
+	}
+
+	function stretchHash(x) {
+	  var stretch = 2016;
+	  for (var i = 0; i < stretch; i++) {
+	    x = md5(x);
+	  }
+	  return x;
+	}
+
+	function main() {
+	  // Initialize
+	  clear();
+	  initValues();
+	  parseInput()
+
+	  // Logic
+	  var count = -1;
+	  var keys = 0;
+	  var pattern = /(.)\1\1/
+	  var buffer = [];
+	  var lookahead = 1000;
+	  // Create fist 1000 keys
+	  for (i = 0; i <= lookahead; i++) {
+	    if (isPart2) {
+	      buffer.push(stretchHash(md5(input + i)))
+	    } else {
+	      buffer.push(md5(input + i));
+	    }
+	  }
+	  while (keys < 64) {
+	    count++;
+	    //Check if key has initial pattern
+	    var match = buffer[0].match(pattern);
+	    if (match) {
+	      var c = match[1];
+	      // Look through the next 1000 keys
+	      for (var i = 1; i < buffer.length; i++) {
+	        if (buffer[i].includes("" + c + c + c + c + c)) {
+	          keys++;
+	          break;
+	        }
+	      }
+	    }
+	    buffer.shift();
+	    if (isPart2) {
+	      buffer.push(stretchHash(md5(input + (count + lookahead + 1))));
+	    } else {
+	      buffer.push(md5(input + (count + lookahead + 1)));
+	    }
+	  }
+
+	  // Output
+	  print("<b>" + count + "</b>");
+	}
+</script>
+<style type="text/css">
+body {
+	background-color: #CCCCCC;
+}
+
+#input, #puzzleinput {
+	width: 100%;
+}
+
+#puzzleinput {
+	white-space: nowrap;
+}
+
+#input {
+	margin-bottom: 1em;
+}
+</style>
+</head>
+<body onload="setInitInput();">
+	<div id="input">
+		<textarea id="puzzleinput" cols="" rows="5"></textarea>
+		<br />
+		<form action="">
+			DAY 14 <input id="part1" type="radio" name="part" value="1"
+				onchange="setPart(this);" checked="checked" />Part 1 <input
+				id="part2" type="radio" name="part" value="2"
+				onchange="setPart(this);" />Part 2 <input type="button"
+				value="SOLVE" onclick="main();">
+		</form>
+	</div>
+	<div id="main"></div>
+</body>
+</html>
