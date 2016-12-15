@@ -1,0 +1,108 @@
+<html>
+<head>
+<script type="text/javascript">
+function print(x) {
+	  var orig = document.getElementById("main").innerHTML;
+	  document.getElementById("main").innerHTML = orig + x + "<br />";
+	}
+
+	function clear() {
+	  document.getElementById("main").innerHTML = "";
+	}
+
+	function setInitInput() {
+	  document.getElementById("puzzleinput").value = initInput;
+	  if (isPart2) {
+	    document.getElementById("part2").checked = true;
+	  } else {
+	    document.getElementById("part1").checked = true;
+	  }
+	}
+
+	function setPart(x) {
+	  isPart2 = x.value == 2;
+	}
+
+	// Input/Output
+	var isPart2 = window.location.href.includes("?2");
+	var initInput = "Disc #1 has 17 positions; at time=0, it is at position 5.\nDisc #2 has 19 positions; at time=0, it is at position 8.\nDisc #3 has 7 positions; at time=0, it is at position 1.\nDisc #4 has 13 positions; at time=0, it is at position 7.\nDisc #5 has 5 positions; at time=0, it is at position 1.\nDisc #6 has 3 positions; at time=0, it is at position 0.";
+	//var initInput = "Disc #1 has 5 positions; at time=0, it is at position 4.\nDisc #2 has 2 positions; at time=0, it is at position 1."; // Part 1/2 Sample Input
+	var input = "";
+	var output = "";
+
+	function parseInput() {
+	  input = document.getElementById("puzzleinput").value.split("\n");
+	}
+
+	// Variables
+	var discs;
+
+	function initValues() {
+	  discs = [];
+	  for (var i = 0; i < input.length; i++) {
+	    var x = input[i].split(' ');
+	    discs.push([parseInt(x[3]), parseInt(x[11].replace('.', ''))]);
+	  }
+	  if (isPart2) {
+	    discs.push([11, 0]);
+	  }
+	}
+
+	function main() {
+	  // Initialize
+	  clear();
+	  parseInput()
+	  initValues();
+
+	  // Logic
+	  output = -1;
+	  var stillLooking = true;
+	  while (stillLooking) {
+	    output++;
+	    var allClear = true;
+	    for (var i = 0; i < discs.length; i++) {
+	      var timeDiff = output + i + 1;
+	      var discSize = discs[i][0];
+	      var curDiscPos = ((discs[i][1] + timeDiff) % discSize);
+	      allClear = allClear && curDiscPos == 0;
+	    }
+	    stillLooking = !allClear;
+	  }
+
+	  // Output
+	  print("<b>" + output + "</b>");
+	}
+</script>
+<style type="text/css">
+body {
+	background-color: #CCCCCC;
+}
+
+#input, #puzzleinput {
+	width: 100%;
+}
+
+#puzzleinput {
+	white-space: nowrap;
+}
+
+#input {
+	margin-bottom: 1em;
+}
+</style>
+</head>
+<body onload="setInitInput();">
+	<div id="input">
+		<textarea id="puzzleinput" cols="" rows="5"></textarea>
+		<br />
+		<form action="">
+			DAY 15 <input id="part1" type="radio" name="part" value="1"
+				onchange="setPart(this);" checked="checked" />Part 1 <input
+				id="part2" type="radio" name="part" value="2"
+				onchange="setPart(this);" />Part 2 <input type="button"
+				value="SOLVE" onclick="main();">
+		</form>
+	</div>
+	<div id="main"></div>
+</body>
+</html>
