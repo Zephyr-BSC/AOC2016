@@ -1,0 +1,118 @@
+<html>
+<head>
+<script type="text/javascript">
+function print(x) {
+	  var orig = document.getElementById("main").innerHTML;
+	  document.getElementById("main").innerHTML = orig + x + "<br />";
+	}
+
+	function clear() {
+	  document.getElementById("main").innerHTML = "";
+	}
+
+	function setInitInput() {
+	  document.getElementById("puzzleinput").value = initInput;
+	  if (isPart2) {
+	    document.getElementById("part2").checked = true;
+	  } else {
+	    document.getElementById("part1").checked = true;
+	  }
+	}
+
+	function setPart(x) {
+	  isPart2 = x.value == 2;
+	}
+
+	// Input/Output
+	var isPart2 = window.location.href.includes("?2");
+	var initInput = "00101000101111010";
+	//var initInput = "10000"; // Part 1 Sample Input
+	var input = "";
+	var output = "";
+
+	function parseInput() {
+	  input = document.getElementById("puzzleinput").value;
+	}
+
+	// Variables
+	var discSize; // 272;
+
+	function initValues() {
+	  if (isPart2) {
+	    discSize = 35651584;
+	  } else {
+	    discSize = 272;
+	  }
+	}
+
+	function main() {
+	  // Initialize
+	  clear();
+	  parseInput();
+	  initValues();
+
+	  // Logic
+	  var data = input.split('');
+	  //build initial string
+	  while (data.length < discSize) {
+	    var b = [];
+	    //reverse b and change characters
+	    for (var i = data.length - 1; i >= 0; i--) {
+	      b.push(data[i] == "0" ? "1" : "0");
+	    }
+	    data = data.concat(["0"]).concat(b);
+	  }
+	  
+	  //find checksum
+	  var checksum = data.slice(0, discSize); // truncate extra data
+	  if (isPart2) {
+	    data = null;
+	  }
+	  do {
+	    var temp = checksum.slice();
+	    checksum = [];
+	    for (var i = 0; i < temp.length; i += 2) {
+	      checksum.push(temp[i] == temp[i + 1] ? "1" : "0");
+	    }
+	  } while (checksum.length % 2 == 0);
+
+	  // Output
+	  if (!isPart2) {
+	    print("<b>" + data.join('') + "</b>");
+	  }
+	  print("<b>" + checksum.join('') + "</b>");
+	}
+</script>
+<style type="text/css">
+body {
+	background-color: #CCCCCC;
+}
+
+#input, #puzzleinput {
+	width: 100%;
+}
+
+#puzzleinput {
+	white-space: nowrap;
+}
+
+#input {
+	margin-bottom: 1em;
+}
+</style>
+</head>
+<body onload="setInitInput();">
+	<div id="input">
+		<textarea id="puzzleinput" cols="" rows="5"></textarea>
+		<br />
+		<form action="">
+			DAY 16 <input id="part1" type="radio" name="part" value="1"
+				onchange="setPart(this);" checked="checked" />Part 1 <input
+				id="part2" type="radio" name="part" value="2"
+				onchange="setPart(this);" />Part 2 <input type="button"
+				value="SOLVE" onclick="main();">
+		</form>
+	</div>
+	<div id="main"></div>
+</body>
+</html>
