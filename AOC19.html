@@ -1,0 +1,188 @@
+<html>
+<head>
+<script type="text/javascript">
+	function print(x) {
+	  var orig = document.getElementById("main").innerHTML;
+	  document.getElementById("main").innerHTML = orig + x + "<br />";
+	}
+
+	function clear() {
+	  document.getElementById("main").innerHTML = "";
+	}
+
+	function setInitInput() {
+	  document.getElementById("puzzleinput").value = initInput;
+	  if (isPart2) {
+	    document.getElementById("part2").checked = true;
+	  } else {
+	    document.getElementById("part1").checked = true;
+	  }
+	}
+
+	function setPart(x) {
+	  isPart2 = x.value == 2;
+	}
+
+	// Input/Output
+	var isPart2 = window.location.href.includes("?2");
+	var initInput = "3014603";
+	//var initInput = "5"; // Part 1 Sample Input
+	//var initInput = ""; // Part 2 Sample Input
+	var input = "";
+	var output = "";
+
+	function parseInput() {
+	  input = parseInt(document.getElementById("puzzleinput").value);
+	}
+
+	// Variables
+
+	function initValues() {
+
+	}
+
+	function whiteElephant(x) {
+	  if (x == 1) {
+	    return 1;
+	  }
+	  var elves = [];
+	  for (var i = 0; i < x; i++) {
+	    elves.push(1);
+	  }
+
+	  var elvesWithGifts = elves.length;
+	  var curElf = -1;
+	  while (elvesWithGifts > 1) {
+	    curElf++;
+	    if (curElf == elves.length) {
+	      curElf = 0;
+	    }
+	    //No gifts, skip
+	    if (elves[curElf] == 0) {
+	      continue;
+	    }
+	    //find next elf
+	    var nextElf = -1;
+	    var pointer = curElf;
+	    while (nextElf < 0) {
+	      pointer++;
+	      if (pointer >= elves.length) {
+	        pointer = 0;
+	      }
+	      if (elves[pointer] > 0) {
+	        nextElf = pointer;
+	      }
+	    }
+	    //take presents
+	    elves[curElf] += elves[nextElf];
+	    elves[nextElf] = 0;
+	    elvesWithGifts--;
+	    if (elvesWithGifts == 1) {
+	      return curElf + 1;
+	    }
+	  }
+	}
+
+	function whiteElephant2(x) {
+	  //find highest power of two to fit in the number
+	  var highest2 = 2;
+	  while (highest2 <= x) {
+	    highest2 *= 2;
+	  }
+	  highest2 /= 2;
+	  return (x - highest2) * 2 + 1;
+	}
+
+	function whiteElephant3(x) {
+	  if (x == 1) {
+	    return 1;
+	  }
+	  var elves = [];
+	  for (var i = 0; i < x; i++) {
+	    elves.push(i + 1);
+	  }
+	  var curElf = -1;
+	  while (elves.length > 1) {
+	    curElf++;
+	    if (curElf >= elves.length) {
+	      curElf = 0;
+	    }
+	    var robbedElf = (Math.floor(elves.length / 2) + curElf) % elves.length;
+	    var temp = elves[robbedElf];
+	    elves.splice(robbedElf, 1);
+	    if (robbedElf <= curElf) {
+	      curElf--;
+	    }
+	  }
+	  return elves[0];
+	}
+
+	function whiteElephant4(x) {
+	  if (x < 3) {
+	    return 1;
+	  }
+	  //find highest power of three to fit in the number
+	  var highest3 = 3;
+	  while (highest3 < x) {
+	    highest3 *= 3;
+	  }
+	  var nextHighest3 = highest3;
+	  highest3 /= 3;
+	  return (x - highest3) + Math.max(0, (x - highest3 * 2));
+	}
+
+	function main() {
+	  // Initialize
+	  clear();
+	  parseInput();
+	  initValues();
+
+	  // Logic
+	  // loop used to find original pattern
+	  // 	  for(var i = 1; i <= input; i +=1){
+	  // 	  	output = whiteElephant4(i);
+	  // 	  	print(i+"\t"+output);
+	  // 	  }
+	  if (isPart2) {
+	    output = whiteElephant4(input);
+	  } else {
+	    output = whiteElephant2(input);
+	  }
+
+	  // Output
+	  print("<b>" + output + "</b>");
+	}
+</script>
+<style type="text/css">
+body {
+	background-color: #CCCCCC;
+}
+
+#input, #puzzleinput {
+	width: 100%;
+}
+
+#puzzleinput {
+	white-space: nowrap;
+}
+
+#input {
+	margin-bottom: 1em;
+}
+</style>
+</head>
+<body onload="setInitInput();">
+	<div id="input">
+		<textarea id="puzzleinput" cols="" rows="5"></textarea>
+		<br />
+		<form action="">
+			DAY 19 <input id="part1" type="radio" name="part" value="1"
+				onchange="setPart(this);" checked="checked" />Part 1 <input
+				id="part2" type="radio" name="part" value="2"
+				onchange="setPart(this);" />Part 2 <input type="button"
+				value="SOLVE" onclick="main();">
+		</form>
+	</div>
+	<div id="main"></div>
+</body>
+</html>
