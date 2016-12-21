@@ -1,0 +1,198 @@
+<html>
+<head>
+<script type="text/javascript">
+	function print(x) {
+	  var orig = document.getElementById("main").innerHTML;
+	  document.getElementById("main").innerHTML = orig + x + "<br />";
+	}
+
+	function clear() {
+	  document.getElementById("main").innerHTML = "";
+	}
+
+	function setInitInput() {
+	  document.getElementById("puzzleinput").value = initInput;
+	  if (isPart2) {
+	    document.getElementById("part2").checked = true;
+	  } else {
+	    document.getElementById("part1").checked = true;
+	  }
+	}
+
+	function setPart(x) {
+	  isPart2 = x.value == 2;
+	}
+
+	// Input/Output
+	var isPart2 = window.location.href.includes("?2");
+	var initInput = "rotate left 2 steps\nrotate right 0 steps\nrotate based on position of letter a\nrotate based on position of letter f\nswap letter g with letter b\nrotate left 4 steps\nswap letter e with letter f\nreverse positions 1 through 6\nswap letter b with letter d\nswap letter b with letter c\nmove position 7 to position 5\nrotate based on position of letter h\nswap position 6 with position 5\nreverse positions 2 through 7\nmove position 5 to position 0\nrotate based on position of letter e\nrotate based on position of letter c\nrotate right 4 steps\nreverse positions 3 through 7\nrotate left 4 steps\nrotate based on position of letter f\nrotate left 3 steps\nswap letter d with letter a\nswap position 0 with position 1\nrotate based on position of letter a\nmove position 3 to position 6\nswap letter e with letter g\nmove position 6 to position 2\nreverse positions 1 through 2\nrotate right 1 step\nreverse positions 0 through 6\nswap letter e with letter h\nswap letter f with letter a\nrotate based on position of letter a\nswap position 7 with position 4\nreverse positions 2 through 5\nswap position 1 with position 2\nrotate right 0 steps\nreverse positions 5 through 7\nrotate based on position of letter a\nswap letter f with letter h\nswap letter a with letter f\nrotate right 4 steps\nmove position 7 to position 5\nrotate based on position of letter a\nreverse positions 0 through 6\nswap letter g with letter c\nreverse positions 5 through 6\nreverse positions 3 through 5\nreverse positions 4 through 6\nswap position 3 with position 4\nmove position 4 to position 2\nreverse positions 3 through 4\nrotate left 0 steps\nreverse positions 3 through 6\nswap position 6 with position 7\nreverse positions 2 through 5\nswap position 2 with position 0\nreverse positions 0 through 3\nreverse positions 3 through 5\nrotate based on position of letter d\nmove position 1 to position 2\nrotate based on position of letter c\nswap letter e with letter a\nmove position 4 to position 1\nreverse positions 5 through 7\nrotate left 1 step\nrotate based on position of letter h\nreverse positions 1 through 7\nrotate based on position of letter f\nmove position 1 to position 5\nreverse positions 1 through 4\nrotate based on position of letter a\nswap letter b with letter c\nrotate based on position of letter g\nswap letter a with letter g\nswap position 1 with position 0\nrotate right 2 steps\nrotate based on position of letter f\nswap position 5 with position 4\nmove position 1 to position 0\nswap letter f with letter b\nswap letter f with letter h\nmove position 1 to position 7\nswap letter c with letter b\nreverse positions 5 through 7\nrotate left 6 steps\nswap letter d with letter b\nrotate left 3 steps\nswap position 1 with position 4\nrotate based on position of letter a\nrotate based on position of letter a\nswap letter b with letter c\nswap letter e with letter f\nreverse positions 4 through 7\nrotate right 0 steps\nreverse positions 2 through 3\nrotate based on position of letter a\nreverse positions 1 through 4\nrotate right 1 step";
+	//var initInput = "swap position 4 with position 0\nswap letter d with letter b\nreverse positions 0 through 4\nrotate left 1 step\nmove position 1 to position 4\nmove position 3 to position 0\nrotate based on position of letter b\nrotate based on position of letter d"; // Part 1 Sample Input
+	var input = "";
+	var output = "";
+
+	function parseInput() {
+	  input = document.getElementById("puzzleinput").value.split("\n");
+	}
+
+	// Variables
+	var initPass;
+
+	function initValues() {
+	  if (!isPart2) {
+	    initPass = "abcdefgh";
+	  } else {
+	    initPass = "fbgdceah";
+	  }
+	}
+
+	//************** http://dsernst.com/2014/12/14/heaps-permutation-algorithm-in-javascript/
+	function swap(array, pos1, pos2) {
+	  var temp = array[pos1];
+	  array[pos1] = array[pos2];
+	  array[pos2] = temp;
+	}
+
+	function heapsPermute(array, output, n) {
+	  n = n || array.length;
+	  if (n === 1) {
+	    output.push(array.join(''));
+	  } else {
+	    for (var i = 1; i <= n; i += 1) {
+	      heapsPermute(array, output, n - 1);
+	      if (n % 2) {
+	        var j = 1;
+	      } else {
+	        var j = i;
+	      }
+	      swap(array, j - 1, n - 1);
+	    }
+	  }
+	}
+	//**************
+
+	function rotate(x, y) {
+	  //reverse the rotation type if part2
+	  for (var j = 0; j < y; j++) {
+	    var temp = x.charAt(x.length - 1);
+	    for (var i = 0; i < x.length - 1; i++) {
+	      temp += x.charAt(i);
+	    }
+	    x = temp
+	  }
+	  return x;
+	}
+
+	function scramblePass(pass) {
+	  var curPass = pass;
+	  for (x of input) {
+	    x = x.split(" ");
+	    switch (x[0] + " " + x[1]) {
+	      case "swap position":
+	        var pos = []
+	        pos.push(parseInt(x[2]), parseInt(x[5]));
+	        pos.sort();
+	        curPass = curPass.substring(0, pos[0]) + curPass.charAt(pos[1]) + curPass.substring(pos[0] + 1, pos[1]) + curPass.charAt(pos[0]) + curPass.substring(pos[1] + 1, curPass.length);
+	        break;
+	      case "swap letter":
+	        var lettx = x[2];
+	        var letty = x[5];
+	        curPass = curPass.replace(new RegExp(lettx, "g"), "%");
+	        curPass = curPass.replace(new RegExp(letty, "g"), lettx);
+	        curPass = curPass.replace(/%/g, letty);
+	        break;
+	      case "rotate left":
+	      case "rotate right":
+	        var rot = parseInt(x[2]) % curPass.length;
+	        var rot = (x[1] == "left") ? curPass.length - rot : rot;
+	        curPass = rotate(curPass, rot);
+	        break;
+	      case "rotate based":
+	        var lettPoss = curPass.indexOf(x[6])
+	        var rot = (1 + lettPoss + (lettPoss >= 4 ? 1 : 0)) % curPass.length;
+	        curPass = rotate(curPass, rot);
+	        break;
+	      case "reverse positions":
+	        var posx = parseInt(x[2]);
+	        var posy = parseInt(x[4]);
+	        var temp = curPass;
+	        for (var i = 0; i <= posy - posx; i++) {
+	          //for(var i = posx; i <= posy; i++){
+	          temp = temp.substring(0, posx + i) + curPass.charAt(posy - i) + temp.substring(posx + i + 1, temp.length);
+	        }
+	        curPass = temp;
+	        break;
+	      case "move position":
+	        var posx = parseInt(x[2]);
+	        var posy = parseInt(x[5]);
+	        var temp = curPass.charAt(posx);
+	        curPass = curPass.substring(0, posx) + curPass.substring(posx + 1, curPass.length);
+	        curPass = curPass.substring(0, posy) + temp + curPass.substring(posy, curPass.length);
+	        break;
+	    }
+	  }
+	  return curPass;
+	}
+
+	function main() {
+	  // Initialize
+	  clear();
+	  parseInput();
+	  initValues();
+
+	  // Logic
+	  var passesToCheck = [];
+	  var solution = []
+	  if (isPart2) {
+	    heapsPermute(initPass.split(''), passesToCheck);
+	  } else {
+	    passesToCheck.push(initPass)
+	  }
+	  for (pass of passesToCheck) {
+	    output = scramblePass(pass);
+	    if (isPart2 && output == initPass) {
+	      solution.push(pass);
+	      output = pass;
+	    }
+	  }
+
+	  // Output
+	  if (isPart2) {
+	    print("<b>" + solution + "</b>-&gt;" + initPass);
+	  } else {
+		print(initPass + "-&gt<b>" + output + "</b>");
+	  }
+	}
+</script>
+<style type="text/css">
+body {
+	background-color: #CCCCCC;
+}
+
+#input, #puzzleinput {
+	width: 100%;
+}
+
+#puzzleinput {
+	white-space: nowrap;
+}
+
+#input {
+	margin-bottom: 1em;
+}
+</style>
+</head>
+<body onload="setInitInput();">
+	<div id="input">
+		<textarea id="puzzleinput" cols="" rows="5"></textarea>
+		<br />
+		<form action="">
+			DAY 21 <input id="part1" type="radio" name="part" value="1"
+				onchange="setPart(this);" checked="checked" />Part 1 <input
+				id="part2" type="radio" name="part" value="2"
+				onchange="setPart(this);" />Part 2 <input type="button"
+				value="SOLVE" onclick="main();">
+		</form>
+	</div>
+	<div id="main"></div>
+</body>
+</html>
